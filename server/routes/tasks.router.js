@@ -20,7 +20,7 @@ router.post('/', (req, res)=> {
             res.sendStatus(201);
         })
         .catch((dbErr)=> {
-            console.log('Error in post /tasks:', dbErr);
+            console.log('Error in POST /tasks:', dbErr);
         })
 })
 
@@ -34,9 +34,28 @@ router.get('/', (req, res) => {
             res.send(dbRes.rows);
         })
         .catch((dbErr)=> {
-            console.log('Error in post /tasks:', dbErr);
+            console.log('Error in GET /tasks:', dbErr);
         })
 
+})
+
+// DELETE 
+router.delete('/:id', (req, res)=> {
+    // console.log('delete')
+    let taskID = req.params.id;
+    const sqlQuery = `
+        DELETE FROM tasks
+            WHERE id = $1;
+        `
+    const sqlValues = [taskID];
+
+    db.query(sqlQuery, sqlValues)
+        .then((dbRes)=> {
+            res.sendStatus(200);
+        })
+        .catch((dbErr)=> {
+            console.log('Error in DELETE /tasks:', dbErr);
+        })
 })
 
 
