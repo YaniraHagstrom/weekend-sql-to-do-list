@@ -24,6 +24,21 @@ router.post('/', (req, res)=> {
         })
 })
 
+// GET 
+router.get('/', (req, res) => {
+    const sqlQuery = `
+        SELECT * FROM tasks;
+    `
+    db.query(sqlQuery)
+        .then((dbRes) => {
+            res.send(dbRes.rows);
+        })
+        .catch((dbErr)=> {
+            console.log('Error in post /tasks:', dbErr);
+        })
+
+})
+
 
 
 
