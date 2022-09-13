@@ -1,0 +1,21 @@
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #EFB366;
+    justify-content: center;
+    align-items: center;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.completedTasks {
+    margin-top: 50px;
+}
+
+.completedItem {
+    background-color: #2A9D8F;
+    color: white;
+}
+
+.task {
+    color: #E76F51;
+}

@@ -4,7 +4,7 @@ CREATE TABLE tasks(
 	"id" SERIAL PRIMARY KEY,
 	"completed" BOOLEAN DEFAULT FALSE,
 	"task" VARCHAR(250) NOT NULL,
-	"date-added" DATE NOT NULL DEFAULT CURRENT_DATE,
+	"dateAdded" DATE NOT NULL DEFAULT CURRENT_DATE,
 	"datecompleted" DATE 
 	);
 	
@@ -13,5 +13,8 @@ CREATE TABLE tasks(
 INSERT INTO tasks (completed, task)
 	VALUES
 		(FALSE, 'Buy laptop protector'),
-		(FALSE, 'Pickup milk');
+		(FALSE, 'Pickup milk'),
+		(FALSE, 'Buy Diapers'),
+		(FALSE, 'Clean Fridge');
+		
 		

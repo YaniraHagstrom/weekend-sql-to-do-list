@@ -23,7 +23,7 @@ function makeReady(){
 }
 
 function completeTask(){
-    let idToComplete = $(this).closest('tr').data('id');
+    let idToComplete = $(this).closest('li').data('id');
     console.log(idToComplete)
     $.ajax({
         method: 'PUT',
@@ -39,26 +39,19 @@ function renderTasks(tasks){
         console.log(task.datecompleted)
         if (!task.completed){
             $('#toDoTable').append(`
-                <tr data-id= ${task.id}>
-                    <td>
-                        ${check}
-                    </td>
-                    <td>${task.task}</td>
-                    <td>
-                        ${trash}
-                    </td>
-                </tr>
+                <li data-id= ${task.id} class="task list-group-item">
+                    <span>${check}</span>
+                    <span>${task.task}</span>
+                    <span>${trash}</span>
+                </li>
             `)
         }
         else{
             $('#completedList').append(`
-                <tr data-id= ${task.id}>
-                    <td>${task.task}</td>
-                    <td>${task.dateCompleted}</td>
-                    <td class='deleteBtn'>
-                        ${trash}
-                    </td>
-                </tr>
+                <li data-id= ${task.id} class="completedItem list-group-item">
+                    <span>${task.task}</span>
+                    <span>${trash}</span>
+                </li>
             `)
         }
     }
@@ -95,7 +88,7 @@ function addTask(){
 
 function deleteTask(){
     // get id of task to delete:
-    let idToDelete = $(this).closest('tr').data('id');
+    let idToDelete = $(this).closest('li').data('id');
     $.ajax({
         method: 'DELETE',
         url: `/tasks/${idToDelete}`
