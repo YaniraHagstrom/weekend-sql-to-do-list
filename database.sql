@@ -4,8 +4,8 @@ CREATE TABLE tasks(
 	"id" SERIAL PRIMARY KEY,
 	"completed" BOOLEAN DEFAULT FALSE,
 	"task" VARCHAR(250) NOT NULL,
-	"date-added" DATE NOT NULL DEFAULT CURRENT_DATE,
-	"date-completed" DATE
+	"dateAdded" DATE NOT NULL DEFAULT CURRENT_DATE,
+	"dateCompleted" DATE
 	);
 	
 
