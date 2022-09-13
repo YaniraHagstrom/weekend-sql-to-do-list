@@ -5,15 +5,29 @@ function makeReady(){
     $('#submitBtn').on('click', addTask);
     $('#toDoTable').on('click', '.deleteBtn', deleteTask);
     $('#completedList').on('click', '.deleteBtn', deleteTask);
+    $('#toDoTable').on('click', '.completeBtn', completeTask);
     fetchTasks();
 }
+
+function completeTask(){
+    let idToComplete = $(this).closest('tr').data('id');
+    $.ajax({
+        method: 'PUT',
+        url: `tasks/${idToComplete}`
+    }).then((dbRes)=> {
+        fetchTasks();
+    })
+}
+
 
 function renderTasks(tasks){
     for (task of tasks){
         if (!task.completed){
             $('#toDoTable').append(`
                 <tr data-id= ${task.id}>
-                    <td>✅</td>
+                    <td>
+                        <button class='completeBtn'>✅</button>
+                    </td>
                     <td>${task.task}</td>
                     <td>
                         <button class='deleteBtn'>🪣</button>
@@ -37,6 +51,7 @@ function renderTasks(tasks){
 
 function fetchTasks() {
     $('#toDoTable').empty();
+    $('#completedList').empty();
     $.ajax({
         method: 'GET',
         url: '/tasks'

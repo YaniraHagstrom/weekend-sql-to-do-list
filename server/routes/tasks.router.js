@@ -8,6 +8,7 @@ const db = require('../modules/pool.js');
 router.post('/', (req, res)=> {
     // console.log('post received');
     let taskAdded = req.body.task;
+    // let taskCompleted = req.bod
     const sqlQuery = `
         INSERT INTO tasks (task)
             VALUES ($1);
@@ -22,6 +23,25 @@ router.post('/', (req, res)=> {
         .catch((dbErr)=> {
             console.log('Error in POST /tasks:', dbErr);
         })
+})
+
+// PUT 
+router.put('/:id',(req, res)=> {
+    let idToComplete = req.params.id;
+    const sqlQuery = `
+        UPDATE tasks
+            SET completed = TRUE
+            WHERE id = $1;
+        `
+
+    const sqlValues = [idToComplete];
+    db.query(sqlQuery,sqlValues)
+    .then((dbRes)=> {
+        res.sendStatus(200);
+    })
+    .catch((dbErr)=> {
+        console.log('Error in PUT /tasks:', dbErr);
+    })
 })
 
 // GET 
@@ -58,8 +78,7 @@ router.delete('/:id', (req, res)=> {
         })
 })
 
-
-
+//
 
 
 
