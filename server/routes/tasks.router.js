@@ -28,20 +28,21 @@ router.post('/', (req, res)=> {
 // PUT 
 router.put('/:id',(req, res)=> {
     let idToComplete = req.params.id;
+    
     const sqlQuery = `
         UPDATE tasks
-            SET completed = TRUE
+            SET datecompleted = current_date, completed = TRUE
             WHERE id = $1;
         `
 
     const sqlValues = [idToComplete];
     db.query(sqlQuery,sqlValues)
-    .then((dbRes)=> {
-        res.sendStatus(200);
-    })
-    .catch((dbErr)=> {
-        console.log('Error in PUT /tasks:', dbErr);
-    })
+        .then((dbRes)=> {
+            res.sendStatus(200);
+        })
+        .catch((dbErr)=> {
+            console.log('Error in PUT /tasks:', dbErr);
+        })
 })
 
 // GET 
@@ -51,6 +52,8 @@ router.get('/', (req, res) => {
     `
     db.query(sqlQuery)
         .then((dbRes) => {
+            let date = dbRes.rows.datecompleted;
+            console.log(dbRes.rows);
             res.send(dbRes.rows);
         })
         .catch((dbErr)=> {
